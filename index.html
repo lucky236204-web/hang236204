@@ -1136,266 +1136,874 @@ setInterval(capNhatDemNguoc, 1000);
   </div>
 </section>
 
-<!-- ==========================================<!-- ==========================================
-     SỔ LƯU BÚT BẢO MẬT (CHỈ CHỦ NHÂN MỚI ĐỌC ĐƯỢC)
+
+
+
+<!-- ==========================================
+    SỔ LƯU BÚT BẢO MẬT
 ========================================== -->
+
 <style>
-  .guestbook-section {
-    max-width: 450px;
-    margin: 40px auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(103, 50, 56, 0.15);
-    border: 1px solid rgba(255, 182, 193, 0.5);
-    font-family: inherit;
-    box-sizing: border-box;
-    text-align: center;
-  }
+ .guestbook-section {
+   max-width: 450px;
+   margin: 40px auto;
+   padding: 20px;
+   background: rgba(255, 255, 255, 0.9);
+   border-radius: 16px;
+   box-shadow: 0 8px 25px rgba(103, 50, 56, 0.15);
+   border: 1px solid rgba(255, 182, 193, 0.5);
+   font-family: inherit;
+   box-sizing: border-box;
+   text-align: center;
+ }
 
-  .guestbook-section h3 {
-    color: #673238;
-    margin-bottom: 5px;
-    font-size: 20px;
-  }
+ .guestbook-section h3 {
+   color: #673238;
+   margin-bottom: 5px;
+   font-size: 20px;
+ }
 
-  .guestbook-subtitle {
-    font-size: 13px;
-    color: #8c5a60;
-    margin-bottom: 15px;
-    font-style: italic;
-  }
+ .guestbook-subtitle {
+   font-size: 13px;
+   color: #8c5a60;
+   margin-bottom: 15px;
+   font-style: italic;
+ }
 
-  .form-group {
-    margin-bottom: 12px;
-    text-align: left;
-  }
+ .form-group {
+   margin-bottom: 12px;
+   text-align: left;
+ }
 
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #d4a373;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    background: #fff;
-    color: #333;
-    box-sizing: border-box;
-    transition: all 0.3s;
-  }
+ .form-group input,
+ .form-group textarea {
+   width: 100%;
+   padding: 10px 14px;
+   border: 1px solid #d4a373;
+   border-radius: 8px;
+   font-size: 14px;
+   outline: none;
+   background: #fff;
+   color: #333;
+   box-sizing: border-box;
+   transition: all 0.3s;
+ }
 
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #673238;
-    box-shadow: 0 0 5px rgba(103, 50, 56, 0.3);
-  }
+ .form-group input:focus,
+ .form-group textarea:focus {
+   border-color: #673238;
+   box-shadow: 0 0 5px rgba(103, 50, 56, 0.3);
+ }
 
-  .form-group textarea {
-    resize: none;
-    height: 80px;
-  }
+ .form-group textarea {
+   resize: none;
+   height: 80px;
+ }
 
-  .submit-btn {
-    width: 100%;
-    padding: 11px;
-    background: linear-gradient(135deg, #673238, #8b4550);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.3s;
-  }
+ .submit-btn {
+   width: 100%;
+   padding: 11px;
+   background: linear-gradient(135deg, #673238, #8b4550);
+   color: white;
+   border: none;
+   border-radius: 8px;
+   font-size: 15px;
+   font-weight: bold;
+   cursor: pointer;
+ }
 
-  .submit-btn:hover {
-    opacity: 0.9;
-  }
+ .submit-btn:hover {
+   opacity: 0.9;
+ }
 
-  /* Nút dành riêng cho chủ nhân mở hòm thư */
-  .admin-access-btn {
-    margin-top: 15px;
-    background: none;
-    border: none;
-    color: #a07177;
-    font-size: 12px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .admin-access-btn:hover {
-    color: #673238;
-  }
+ .admin-access-btn {
+   margin-top: 15px;
+   background: none;
+   border: none;
+   color: #a07177;
+   font-size: 12px;
+   cursor: pointer;
+   text-decoration: underline;
+ }
 
-  /* Khu vực hiển thị danh sách dành cho chủ nhân (Ẩn mặc định) */
-  .admin-dashboard {
-    display: none;
-    margin-top: 20px;
-    border-top: 1px dashed #d4a373;
-    padding-top: 15px;
-    text-align: left;
-  }
+ .admin-access-btn:hover {
+   color: #673238;
+ }
 
-  .admin-dashboard h4 {
-    color: #673238;
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+ .admin-dashboard {
+   display: none;
+   margin-top: 20px;
+   border-top: 1px dashed #d4a373;
+   padding-top: 15px;
+   text-align: left;
+ }
 
-  .wishes-list-container {
-    max-height: 250px;
-    overflow-y: auto;
-    padding-right: 5px;
-  }
+ .admin-dashboard h4 {
+   color: #673238;
+   font-size: 16px;
+   margin-bottom: 10px;
+   text-align: center;
+ }
 
-  .wish-card {
-    background: #fff0f5;
-    border-left: 4px solid #673238;
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-  }
+ .wishes-list-container {
+   max-height: 300px;
+   overflow-y: auto;
+   padding-right: 5px;
+ }
 
-  .wish-content {
-    font-size: 13px;
-    color: #4a2e32;
-    line-height: 1.4;
-    margin-bottom: 6px;
-    word-break: break-word;
-  }
+ .wish-card {
+   background: #fff0f5;
+   border-left: 4px solid #673238;
+   padding: 10px 12px;
+   border-radius: 6px;
+   margin-bottom: 10px;
+ }
 
-  .wish-author {
-    text-align: right;
-    font-size: 11px;
-    font-style: italic;
-    font-weight: bold;
-    color: #673238;
-  }
-  
-  .success-alert {
-    color: #2e7d32;
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 10px;
-    display: none;
-  }
+ .wish-content {
+   font-size: 13px;
+   color: #4a2e32;
+   line-height: 1.4;
+   margin-bottom: 6px;
+   word-break: break-word;
+ }
+
+ .wish-author {
+   text-align: right;
+   font-size: 11px;
+   font-style: italic;
+   font-weight: bold;
+   color: #673238;
+   margin-bottom: 8px;
+ }
+
+ .wish-time {
+   font-size: 10px;
+   color: #999;
+   margin-bottom: 8px;
+ }
+
+ .wish-actions {
+   display: flex;
+   gap: 7px;
+ }
+
+ .wish-actions button {
+   flex: 1;
+   padding: 6px 8px;
+   border: none;
+   border-radius: 6px;
+   font-size: 11px;
+   cursor: pointer;
+ }
+
+ .edit-btn {
+   background: #f4c6d7;
+   color: #673238;
+ }
+
+ .delete-btn {
+   background: #673238;
+   color: white;
+ }
+
+ .success-alert {
+   color: #2e7d32;
+   font-size: 13px;
+   font-weight: bold;
+   margin-top: 10px;
+   display: none;
+ }
 </style>
-
 <div class="guestbook-section">
-  <h3>🌸 Sổ Lưu Bút Bí Mật 🌸</h3>
-  <div class="guestbook-subtitle">Gửi lời chúc tốt nghiệp đến Thùy Linh (Lời chúc sẽ được bảo mật riêng tư)</div>
-  
-  <!-- Form cho khách gửi lời chúc -->
-  <div id="wishForm">
-    <div class="form-group">
-      <input type="text" id="senderName" placeholder="Tên của bạn..." required>
-    </div>
-    <div class="form-group">
-      <textarea id="senderMessage" placeholder="Viết lời chúc của bạn ở đây..." required></textarea>
-    </div>
-    <button type="button" class="submit-btn" onclick="submitWish()">Gửi Lời Chúc 💌</button>
-    <div id="successMsg" class="success-alert">Đã gửi lời chúc thành công! Cảm ơn bạn rất nhiều ❤️</div>
-  </div>
 
-  <!-- Nút dành riêng cho chủ nhân mở xem -->
-  <div>
-    <button type="button" class="admin-access-btn" onclick="openAdminDashboard()">🔒 Hòm thư của Thùy Linh</button>
-  </div>
+ <h3>🌸 Sổ Lưu Bút Bí Mật 🌸</h3>
 
-  <!-- Bảng quản trị xem lời chúc (Cần mật khẩu) -->
-  <div class="admin-dashboard" id="adminDashboard">
-    <h4>💌 Hộp Thư Bí Mật Của Linh</h4>
-    <div class="wishes-list-container" id="wishesContainer">
-      <!-- Dữ liệu lời chúc sẽ hiện ở đây khi nhập đúng mật khẩu -->
-    </div>
-    <button type="button" class="admin-access-btn" style="display:block; margin: 10px auto 0;" onclick="lockDashboard()">Khóa lại 🔒</button>
-  </div>
+ <div class="guestbook-subtitle">
+   Gửi lời chúc tốt nghiệp đến Thùy Linh<br>
+   (Lời chúc sẽ được bảo mật riêng tư)
+ </div>
+
+ <!-- FORM KHÁCH GỬI LỜI CHÚC -->
+ <div id="wishForm">
+
+   <div class="form-group">
+     <input
+       type="text"
+       id="senderName"
+       placeholder="Tên của bạn..."
+       maxlength="100"
+       required>
+   </div>
+
+   <div class="form-group">
+     <textarea
+       id="senderMessage"
+       placeholder="Viết lời chúc của bạn ở đây..."
+       maxlength="1000"
+       required></textarea>
+   </div>
+
+   <button
+     type="button"
+     class="submit-btn"
+     onclick="submitWish()">
+     Gửi Lời Chúc 💌
+   </button>
+
+   <div id="successMsg" class="success-alert">
+     Đã gửi lời chúc thành công! Cảm ơn bạn rất nhiều ❤️
+   </div>
+
+ </div>
+
+ <!-- NÚT CHỦ NHÂN -->
+ <div>
+   <button
+     type="button"
+     class="admin-access-btn"
+     onclick="openAdminDashboard()">
+     🔒 Hòm thư của Thùy Linh
+   </button>
+ </div>
+
+ <!-- HÒM THƯ CHỦ NHÂN -->
+ <div
+   class="admin-dashboard"
+   id="adminDashboard">
+
+   <h4>💌 Hộp Thư Bí Mật Của Linh</h4>
+
+   <div
+     class="wishes-list-container"
+     id="wishesContainer">
+   </div>
+
+   <button
+     type="button"
+     class="admin-access-btn"
+     style="display:block; margin:10px auto 0;"
+     onclick="lockDashboard()">
+     Khóa lại 🔒
+   </button>
+
+ </div>
+
 </div>
 
-<!-- JavaScript xử lý bảo mật và lưu trữ -->
-<script>
-  // Mật khẩu mặc định của bạn là "2309" (Bạn có thể đổi số khác trong ngoặc bên dưới tùy thích)
-  const ADMIN_PASSWORD = "2309"; 
 
-  // Lấy danh sách lời chúc từ bộ nhớ trình duyệt (hoặc khởi tạo mảng trống)
-  let savedWishes = JSON.parse(localStorage.getItem('myGraduationWishes')) || [];
+<!-- ==========================================
+     FIREBASE - SỔ LƯU BÚT
+========================================== -->
 
-  function submitWish() {
-    const nameInput = document.getElementById('senderName');
-    const msgInput = document.getElementById('senderMessage');
-    const successAlert = document.getElementById('successMsg');
+<script type="module">
 
-    const name = nameInput.value.trim();
-    const message = msgInput.value.trim();
+import {
+  initializeApp,
+  getApp,
+  getApps
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-    if (name === "" || message === "") {
-      alert("Bạn nhớ nhập đầy đủ tên và lời chúc nhé! ❤️");
-      return;
-    }
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  update,
+  remove
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-    // Lưu vào mảng dữ liệu
-    const newWish = {
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+/* ==========================================
+   CẤU HÌNH FIREBASE
+========================================== */
+
+const firebaseConfig = {
+apiKey: "AIzaSyDELEpJFfpIq96uFh3S4ZjOQgd0_AJUvdU",
+  authDomain: "thiep-tot-nghiep-4fcc3.firebaseapp.com",
+  databaseURL: "https://thiep-tot-nghiep-4fcc3-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "thiep-tot-nghiep-4fcc3",
+  storageBucket: "thiep-tot-nghiep-4fcc3.firebasestorage.app",
+  messagingSenderId: "531376427038",
+  appId: "1:531376427038:web:1404e1356d3b72d444de0f",
+  measurementId: "G-NPZ2GYQ2D8"
+};
+
+/* ==========================================
+   KHỞI TẠO FIREBASE
+========================================== */
+
+const app = getApps().length
+  ? getApp()
+  : initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+
+/* ==========================================
+   UID CHỦ NHÂN
+   ========================================== */
+
+const OWNER_UID = "2MTRj6ral8hMla3MK6H1PSqMgPO2";
+
+
+/* ==========================================
+   MẬT KHẨU LỚP NGOÀI
+========================================== */
+
+const ADMIN_PASSWORD = "2309";
+
+
+/* ==========================================
+   BIẾN THEO DÕI HÒM THƯ
+========================================== */
+
+let stopWishesListener = null;
+
+
+/* ==========================================
+   GỬI LỜI CHÚC
+========================================== */
+
+async function submitWish() {
+
+  const nameInput =
+    document.getElementById("senderName");
+
+  const messageInput =
+    document.getElementById("senderMessage");
+
+  const successAlert =
+    document.getElementById("successMsg");
+
+
+  const name =
+    nameInput.value.trim();
+
+  const message =
+    messageInput.value.trim();
+
+
+  if (!name || !message) {
+
+    alert(
+      "Bạn nhớ nhập đầy đủ tên và lời chúc nhé! ❤️"
+    );
+
+    return;
+  }
+
+
+  try {
+
+    const wishesRef =
+      ref(db, "wishes");
+
+
+    await push(wishesRef, {
+
       name: name,
+
       message: message,
-      time: new Date().toLocaleDateString('vi-VN')
-    };
 
-    savedWishes.unshift(newWish); // Đưa lên đầu
-    localStorage.setItem('myGraduationWishes', JSON.stringify(savedWishes));
+      time: new Date().toLocaleString(
+        "vi-VN"
+      )
 
-    // Reset form và báo thành công
+    });
+
+
     nameInput.value = "";
-    msgInput.value = "";
+
+    messageInput.value = "";
+
+
     successAlert.style.display = "block";
+
+
     setTimeout(() => {
+
       successAlert.style.display = "none";
+
     }, 4000);
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Không gửi được lời chúc. Nam kiểm tra lại kết nối Firebase nhé!"
+    );
+
   }
 
-  function openAdminDashboard() {
-    const password = prompt("Nhập mật khẩu bí mật của Thùy Linh để mở hòm thư:");
-    if (password === ADMIN_PASSWORD) {
-      renderWishes();
-      document.getElementById('adminDashboard').style.display = "block";
-    } else if (password !== null) {
-      alert("Mật khẩu không đúng rồi Linh ơi! ❌");
-    }
+}
+
+
+/* ==========================================
+   MỞ HÒM THƯ
+========================================== */
+
+async function openAdminDashboard() {
+
+  const password =
+    prompt(
+      "Nhập mật khẩu bí mật của Thùy Linh:"
+    );
+
+
+  if (password === null) {
+    return;
   }
 
-  function lockDashboard() {
-    document.getElementById('adminDashboard').style.display = "none";
+
+  if (password !== ADMIN_PASSWORD) {
+
+    alert(
+      "Mật khẩu không đúng! ❌"
+    );
+
+    return;
   }
 
-  function renderWishes() {
-    const container = document.getElementById('wishesContainer');
-    container.innerHTML = "";
 
-    if (savedWishes.length === 0) {
-      container.innerHTML = `<div style="text-align:center; font-size:13px; color:#777; padding:10px;">Hòm thư hiện đang trống!</div>`;
+  const email =
+    prompt(
+      "Nhập email tài khoản Firebase của Thùy Linh:"
+    );
+
+
+  if (!email) {
+    return;
+  }
+
+
+  const firebasePassword =
+    prompt(
+      "Nhập mật khẩu tài khoản Firebase:"
+    );
+
+
+  if (!firebasePassword) {
+    return;
+  }
+
+
+  try {
+
+    const result =
+      await signInWithEmailAndPassword(
+        auth,
+        email.trim(),
+        firebasePassword
+      );
+
+
+    if (result.user.uid !== OWNER_UID) {
+
+      await signOut(auth);
+
+      alert(
+        "Tài khoản này không phải tài khoản chủ nhân! ❌"
+      );
+
       return;
     }
 
-    savedWishes.forEach(wish => {
-      const card = document.createElement('div');
-      card.className = 'wish-card';
-      card.innerHTML = `
-        <div class="wish-content">${escapeHtml(wish.message)}</div>
-        <div class="wish-author">- ${escapeHtml(wish.name)} -</div>
-      `;
-      container.appendChild(card);
-    });
+
+    document.getElementById(
+      "adminDashboard"
+    ).style.display = "block";
+
+
+    loadWishes();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Không đăng nhập được Firebase. Kiểm tra email hoặc mật khẩu nhé! ❌"
+    );
+
   }
 
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+}
+
+
+/* ==========================================
+   TẢI LỜI CHÚC TỪ FIREBASE
+========================================== */
+
+function loadWishes() {
+  const wishesRef =
+    ref(db, "wishes");
+
+
+  if (stopWishesListener) {
+
+    stopWishesListener();
+
+    stopWishesListener = null;
+
   }
+
+
+  stopWishesListener =
+    onValue(
+      wishesRef,
+      (snapshot) => {
+
+        const data =
+          snapshot.val();
+
+        const container =
+          document.getElementById(
+            "wishesContainer"
+          );
+
+
+        container.innerHTML = "";
+
+
+        if (!data) {
+
+          container.innerHTML = `
+            <div style="
+              text-align:center;
+              font-size:15px;
+              color:#777;
+              padding:10px;
+            ">
+              Hòm thư hiện đang trống!
+            </div>
+          `;
+
+          return;
+        }
+
+
+        const wishes =
+          Object.entries(data)
+            .map(([id, wish]) => ({
+              id,
+              ...wish
+            }))
+            .reverse();
+
+
+        wishes.forEach((wish) => {
+
+          const card =
+            document.createElement("div");
+
+          card.className = "wish-card";
+
+
+          card.innerHTML = `
+
+            <div class="wish-content">
+              ${escapeHtml(wish.message || "")}
+            </div>
+
+            <div class="wish-author">
+              - ${escapeHtml(wish.name || "Ẩn danh")} -
+            </div>
+
+            <div class="wish-time">
+           ${escapeHtml(wish.time || "")}
+
+            </div>
+
+            <div class="wish-actions">
+
+              <button
+
+                type="button"
+
+                class="edit-btn"
+
+                onclick="editWish('${wish.id}')">
+
+                ✏️ Sửa
+
+              </button>
+
+              <button
+
+                type="button"
+
+                class="delete-btn"
+
+                onclick="deleteWish('${wish.id}')">
+
+                🗑️ Xóa
+
+              </button>
+
+            </div>
+
+          `;
+
+          container.appendChild(card);
+
+        });
+
+      },
+
+      (error) => {
+
+        console.error(error);
+
+        alert(
+
+          "Không thể đọc hòm thư. Firebase đã chặn quyền truy cập."
+
+        );
+
+      }
+
+    );
+
+}
+
+/* ==========================================
+
+   SỬA LỜI CHÚC
+
+========================================== */
+
+async function editWish(id) {
+
+  if (
+
+    !auth.currentUser ||
+
+    auth.currentUser.uid !== OWNER_UID
+
+  ) {
+
+    alert(
+
+      "Bạn chưa đăng nhập tài khoản chủ nhân."
+
+    );
+
+    return;
+
+  }
+
+  const newMessage =
+
+    prompt(
+
+      "Sửa lời chúc:",
+
+      ""
+
+    );
+
+  if (
+
+    newMessage === null ||
+
+    newMessage.trim() === ""
+
+  ) {
+
+    return;
+
+  }
+
+  try {
+
+    await update(
+
+      ref(db, "wishes/" + id),
+
+      {
+
+        message: newMessage.trim()
+
+      }
+
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+
+      "Không sửa được lời chúc! ❌"
+
+    );
+
+  }
+
+}
+
+/* ==========================================
+
+   XÓA LỜI CHÚC
+
+========================================== */
+
+async function deleteWish(id) {
+
+  if (
+
+    !auth.currentUser ||
+
+    auth.currentUser.uid !== OWNER_UID
+
+  ) {
+
+    alert(
+
+      "Bạn chưa đăng nhập tài khoản chủ nhân."
+
+    );
+
+    return;
+
+  }
+
+  const ok =
+
+    confirm(
+
+      "Nam có chắc muốn xóa lời chúc này không?"
+
+    );
+
+  if (!ok) {
+
+    return;
+
+  }
+
+  try {
+
+    await remove(
+
+      ref(db, "wishes/" + id)
+
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+
+      "Không xóa được lời chúc! ❌"
+
+    );
+
+  }
+
+}
+
+/* ==========================================
+
+   KHÓA HÒM THƯ
+
+========================================== */
+
+async function lockDashboard() {
+
+  if (stopWishesListener) {
+
+    stopWishesListener();
+
+    stopWishesListener = null;
+
+  }
+
+  document.getElementById(
+
+    "adminDashboard"
+
+  ).style.display = "none";
+
+  document.getElementById(
+
+    "wishesContainer"
+
+  ).innerHTML = "";
+
+  try {
+
+    await signOut(auth);
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+/* ==========================================
+
+   CHỐNG CHÈN HTML
+
+========================================== */
+
+function escapeHtml(text) {
+
+  return String(text)
+
+    .replace(/&/g, "&amp;")
+
+    .replace(/</g, "&lt;")
+
+    .replace(/>/g, "&gt;")
+
+    .replace(/"/g, "&quot;")
+
+    .replace(/'/g, "&#039;");
+
+}
+/* ==========================================
+
+   ĐỂ ONCLICK HTML GỌI ĐƯỢC HÀM MODULE
+
+========================================== */
+
+window.submitWish =
+
+  submitWish;
+
+window.openAdminDashboard =
+
+  openAdminDashboard;
+
+window.lockDashboard =
+
+  lockDashboard;
+
+window.editWish =
+
+  editWish;
+
+window.deleteWish =
+
+  deleteWish;
+
 </script>
+  
+
+
 <!-- ==========================================
      PHẦN LỜI CẢM ƠN (SÂU LẮNG & XÚC ĐỘNG)
 ========================================== -->
@@ -1434,7 +2042,27 @@ setInterval(capNhatDemNguoc, 1000);
     color: #673238;
     font-weight: bold;
     font-size: 15px;
+
+  
+
+
   }
+
+.guestbook-subtitle,
+.admin-access-btn,
+.thank-you-content {
+  font-family: "Times New Roman", serif;
+  font-size: 15px;
+}
+
+.wish-content,
+.wish-author,
+.wish-time {
+  font-family: "Times New Roman", serif;
+  font-size: 15px;
+}
+
+
 </style>
 
 <div class="thank-you-section">
